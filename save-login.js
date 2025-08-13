@@ -1,7 +1,7 @@
-import { neon } from '@netlify/neon';
+import { supabase } from '@netlify/supabase';
 
 export default async (req, context) => {
-  const sql = neon();
+  const sql = supabase();
   const { username, password } = await req.json();
 
   await sql`
@@ -13,4 +13,5 @@ export default async (req, context) => {
     JSON.stringify({ message: 'Data saved successfully' }),
     { status: 200, headers: { 'Content-Type': 'application/json' } }
   );
+
 };
