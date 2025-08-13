@@ -1,0 +1,34 @@
+name: PR Workflow - Save Login
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+jobs:
+  handle-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Netlify Function or migration
+        if: github.event.action != 'closed'
+        run: |
+          echo "Running PR workflow..."
+          # هنا تقدر تضيف أي سكربت عشان يعمل migration أو Function
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: PR Closed
+        if: github.event.action == 'closed'
+        run: |
+          echo "PR closed, branch cleanup if needed..."
