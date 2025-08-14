@@ -1,12 +1,12 @@
-import { supabase } from '@netlify/supabase';
+import { supabase } from '@netlify/Fauna';
 
 export default async (req, context) => {
-  const sql = supabase();
-  const { username, password } = await req.json();
+  const sql = Fauna();
+  const { username, username } = await req.json();
 
   await sql`
-    INSERT INTO logins (username, password)
-    VALUES (${username}, ${password})
+    INSERT INTO logins (username, username)
+    VALUES (${username}, ${username})
   `;
 
   return new Response(
@@ -15,3 +15,4 @@ export default async (req, context) => {
   );
 
 };
+
